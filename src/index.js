@@ -107,11 +107,19 @@ window.addEventListener('load', async () => {
   const shipButton = document.getElementById('ship');
   const deliverButton = document.getElementById('deliver');
   const connectButton = document.getElementById('connectButton');
+  const ShippingStatus = {
+    0: 'Unknown',
+    1: 'Shipped',
+    2: 'Delivered',
+  };
 
-  checkStatusButton.addEventListener('click', async () => {
-      const statusValue = await contract.methods.Status().send({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
-      statusElement.innerText = `Statut de la commande : \${ShippingStatus[statusValue]}`;
-  });
+checkStatusButton.addEventListener('click', async () => {
+    const statusValue = await contract.methods.Status().call({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
+    console.log("statusValue: ", statusValue); 
+    statusElement.innerText = `Statut de la commande : ${ShippingStatus[statusValue]}`;
+});
+
+  
 
   shipButton.addEventListener('click', async () => {
       await contract.methods.shipped().send({ from: accounts[0] });
