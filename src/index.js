@@ -6,8 +6,99 @@ window.addEventListener('load', async () => {
       window.web3 = new Web3(new Web3.providers.HttpProvider('https://rpc-mumbai.matic.network'));
   }
 
-  const contractAddress = '0xCONTRACT_ADDRESS'; // Remplacez par l'adresse du contrat déployé
-  const abi = [/* ABI du contrat */]; // Remplacez par l'ABI du contrat
+  const contractAddress = '0x6313d59e5B4985727254FADF654E3A641F33Ea8c'; // Remplacez par l'adresse du contrat déployé
+  const abi = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [],
+		"name": "MissionComplete",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "MATIC_PRICE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "Status",
+		"outputs": [
+			{
+				"internalType": "enum Marketplace.ShippingStatus",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "delivered",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStatus",
+		"outputs": [
+			{
+				"internalType": "enum Marketplace.ShippingStatus",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "shipped",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "status",
+		"outputs": [
+			{
+				"internalType": "enum Marketplace.ShippingStatus",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]; // Remplacez par l'ABI du contrat
   const contract = new window.web3.eth.Contract(abi, contractAddress);
   const accounts = await window.web3.eth.getAccounts();
 
@@ -18,7 +109,7 @@ window.addEventListener('load', async () => {
   const connectButton = document.getElementById('connectButton');
 
   checkStatusButton.addEventListener('click', async () => {
-      const statusValue = await contract.methods.getStatusForCustomer().send({ from: accounts[0], value: web3.utils.toWei('0.1', 'ether') });
+      const statusValue = await contract.methods.Status().send({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
       statusElement.innerText = `Statut de la commande : \${ShippingStatus[statusValue]}`;
   });
 

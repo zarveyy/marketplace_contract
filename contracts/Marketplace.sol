@@ -5,7 +5,7 @@ contract Marketplace {
     enum ShippingStatus { Pending, Shipped, Delivered }
     ShippingStatus public status;
     address public owner;
-    uint public constant MATIC_PRICE = 0.1 ether;
+    uint public constant MATIC_PRICE = 0.01 ether;
 
     event MissionComplete();
 
@@ -32,7 +32,7 @@ contract Marketplace {
         return status;
     }
 
-    function getStatusForCustomer() public payable returns (ShippingStatus) {
+    function Status() public payable returns (ShippingStatus) {
         require(msg.value >= MATIC_PRICE, "Le paiement doit etre superieur ou egal au montant requis pour obtenir le statut.");
         return status;
     }
