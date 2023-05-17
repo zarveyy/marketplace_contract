@@ -114,7 +114,8 @@ window.addEventListener('load', async () => {
   };
 
 checkStatusButton.addEventListener('click', async () => {
-    const statusValue = await contract.methods.Status().call({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
+    await contract.methods.Status().send({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
+	const statusValue = await contract.methods.Status().call({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
     console.log("statusValue: ", statusValue); 
     statusElement.innerText = `Statut de la commande : ${ShippingStatus[statusValue]}`;
 });
